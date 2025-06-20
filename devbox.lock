@@ -1,0 +1,57 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "github:NixOS/nixpkgs/nixpkgs-unstable": {
+      "last_modified": "2025-06-08T07:56:50Z",
+      "resolved": "github:NixOS/nixpkgs/8207ad0d501dd3590e0e81a7c56b386a5c4342c9?lastModified=1749369410&narHash=sha256-P1eYm8bewiyWg3QaPCHrOp6iWg%2F7ESi%2FaGHT4yilyNo%3D"
+    },
+    "oapi-codegen@latest": {
+      "last_modified": "2025-05-16T20:19:48Z",
+      "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#oapi-codegen",
+      "source": "devbox-search",
+      "version": "2.4.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/p2hjh2jqwvv8k09ibjja3rli25z4khdd-oapi-codegen-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/p2hjh2jqwvv8k09ibjja3rli25z4khdd-oapi-codegen-2.4.1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/6n9d6wh1nq54z3ksnxxqzqk71njq2yni-oapi-codegen-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/6n9d6wh1nq54z3ksnxxqzqk71njq2yni-oapi-codegen-2.4.1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/xx6c7nc5k8nb9h9796pjzr5d0qsl6hgx-oapi-codegen-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/xx6c7nc5k8nb9h9796pjzr5d0qsl6hgx-oapi-codegen-2.4.1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/sm4rw6939ln2wqksblnlgb3cd86wrpiw-oapi-codegen-2.4.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/sm4rw6939ln2wqksblnlgb3cd86wrpiw-oapi-codegen-2.4.1"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: OpenAPI specification
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Root endpoint
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: All good!
+
+  /name:
+    post:
+      summary: Accepts a name and returns a response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  pattern: "^[A-Za-z'-]+$"
+              required:
+                - name
+      responses:
+        '200':
+          description: Name received
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+                    example: Hello, John!
+        '400':
+          description: Invalid name format
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Name must only contain letters, hyphens, or apostrophes.
