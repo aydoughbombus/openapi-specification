@@ -20,5 +20,5 @@ runs:
         path: ${{ inputs.path }}
 
     - shell: bash
-      run: ls
+      run: ls repo
     
