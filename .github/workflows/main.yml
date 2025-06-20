@@ -13,6 +13,10 @@ jobs:
               shell: bash
               run: make build-sdk
 
-            - name: Generate SDK
+            - name: Generate API
               shell: bash
-              run: make build-sdk
+              run: make build-api
+
+            - uses: ./.github/actions/init-repo.yaml
+              with:
+                token: ${secrets.SERVER_CLIENT_TOKEN}

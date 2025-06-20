@@ -1,0 +1,23 @@
+name: init-repo
+description: Inits the openapi-server-client repo to create a PR
+
+inputs:
+  token:
+    description: GitHub token for the target repo
+    required: true
+    type: string
+  path:
+    description: Path to place the repository
+    type: string
+    default: repo
+
+steps:
+  - uses: actions/checkout@v4
+    with:
+      repository: aydoughbombus/openapi-server-client
+      token: ${secrets.SERVER_CLIENT_TOKEN}
+      path: ${inputs.path}
+
+  - shell: bash
+    run: ls
+    
