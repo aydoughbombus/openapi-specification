@@ -4,6 +4,8 @@ jobs:
     ci:
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v4
+
             - name: Install devbox
               uses: jetify-com/devbox-install-action@v0.12.0
 
@@ -11,6 +13,11 @@ jobs:
               shell: bash
               run: make build-sdk
 
-            - name: Generate SDK
+            - name: Generate API
               shell: bash
-              run: make build-sdk
+              run: make build-api
+
+            - name: Init repository
+              uses: ./.github/actions/init-repo
+              with:
+                token: ${{ secrets.SERVER_CLIENT_TOKEN }}
