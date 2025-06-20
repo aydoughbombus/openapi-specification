@@ -20,4 +20,4 @@ jobs:
             - name: Init repository
               uses: ./.github/actions/init-repo
               with:
-                token: ${secrets.SERVER_CLIENT_TOKEN}
+                token: ${{ secrets.SERVER_CLIENT_TOKEN }}

@@ -16,8 +16,8 @@ runs:
     - uses: actions/checkout@v4
       with:
         repository: aydoughbombus/openapi-server-client
-        token: ${secrets.SERVER_CLIENT_TOKEN}
-        path: ${inputs.path}
+        token: ${{ secrets.SERVER_CLIENT_TOKEN }}
+        path: ${{ inputs.path }}
 
     - shell: bash
       run: ls
