@@ -17,6 +17,7 @@ jobs:
               shell: bash
               run: make build-api
 
-            - uses: ./.github/actions/init-repo.yaml
+            - name: Init repository
+              uses: ./.github/actions/init-repo.yaml
               with:
                 token: ${secrets.SERVER_CLIENT_TOKEN}
