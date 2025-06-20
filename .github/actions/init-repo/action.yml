@@ -10,14 +10,15 @@ inputs:
     description: Path to place the repository
     type: string
     default: repo
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: aydoughbombus/openapi-server-client
+        token: ${secrets.SERVER_CLIENT_TOKEN}
+        path: ${inputs.path}
 
-steps:
-  - uses: actions/checkout@v4
-    with:
-      repository: aydoughbombus/openapi-server-client
-      token: ${secrets.SERVER_CLIENT_TOKEN}
-      path: ${inputs.path}
-
-  - shell: bash
-    run: ls
+    - shell: bash
+      run: ls
     
