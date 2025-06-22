@@ -19,6 +19,10 @@ runs:
   using: composite
   steps:
 
+  - name: Debug
+    shell: bash
+    run: ls -R
+
   - name: Set up SSH
     shell: bash
     run: |
