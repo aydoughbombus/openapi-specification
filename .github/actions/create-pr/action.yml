@@ -15,52 +15,53 @@ inputs:
     retuired: true
     type: string
 
-  runs:
-    using: composite
-    steps:
+runs:
+  using: composite
+  steps:
 
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ inputs.ssh_private_key }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+  - name: Set up SSH
+    run: |
+      mkdir -p ~/.ssh
+      echo "${{ inputs.ssh_private_key }}" > ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
 
-        ssh-keyscan github.com >> ~/.ssh/known_hosts
+      ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-    - name: Copy files over
-      shell: bash
-      run: rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/
+  - name: Copy files over
+    shell: bash
+    run: rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/
 
-    - name: Create branch
-      working_directory: ${{ inputs.repo_path }}
-      shell: bash
-      run: |
-        if ! git checkout -b 'AUTO-PR-${{ github.ref_name }}' 2>/dev/null; then
-          echo "Branch AUTO-BRANCH-${{ github.ref_name }} already exists. Skipping creation"
-          git checkout 'AUTO-BRANCH-${{ github.ref_name }}'
-        fi
+  - name: Create branch
+    working_directory: ${{ inputs.repo_path }}
+    shell: bash
+    run: |
+      if ! git checkout -b 'AUTO-PR-${{ github.ref_name }}' 2>/dev/null; then
+        echo "Branch AUTO-BRANCH-${{ github.ref_name }} already exists. Skipping creation"
+        git checkout 'AUTO-BRANCH-${{ github.ref_name }}'
+      fi
 
-    - name: Push changes to branch
-      working_directory: ${{ inputs.repo_path }}
-      shell: bash
-      workdir: ${{ inputs.repo_path }}
-      run: |
-        git config user.name 'aydough-bot'
-        git config user.email 'aydough-bot@non-existent.com'
-        git add .
-        git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
-        git push origin AUTO-BRANCH-${{ github.ref_name }}
+  - name: Push changes to branch
+    working_directory: ${{ inputs.repo_path }}
+    shell: bash
+    workdir: ${{ inputs.repo_path }}
+    run: |
+      git config user.name 'aydough-bot'
+      git config user.email 'aydough-bot@non-existent.com'
+      git add .
+      git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
+      git push origin AUTO-BRANCH-${{ github.ref_name }}
 
-    - name: Open new PR
-      shell: bash
-      env:
-        GH_TOKEN: ${{ inputs.token }}
-      run: |
-        out=$(gh pr list --state open --base main --head AUTO-BRANCH-${{ github.ref_name }} --repo aydoughbombus/openapi-server-client --json number --jq '.[0].number'| xargs)
-        if [[ -z "$out" ]]; then
-          # No PR found - then let's open it
-          gh pr create --title AUTO-PR-${{ github.ref_name }} --body 'PR automatically created'
-        else
-          echo "PR already exists, skipping creation"
-        fi
-    
+  - name: Open new PR
+    shell: bash
+    env:
+      GH_TOKEN: ${{ inputs.token }}
+    run: |
+      out=$(gh pr list --state open --base main --head AUTO-BRANCH-${{ github.ref_name }} --repo aydoughbombus/openapi-server-client --json number --jq '.[0].number'| xargs)
+      if [[ -z "$out" ]]; then
+        # No PR found - then let's open it
+        gh pr create --title AUTO-PR-${{ github.ref_name }} --body 'PR automatically created'
+      else
+        echo "PR already exists, skipping creation"
+      fi
+  
+  
