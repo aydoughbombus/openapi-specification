@@ -19,9 +19,18 @@ runs:
   using: composite
   steps:
 
+  - uses: actions/checkout@v4
+    with:
+      repository: aydoughbombus/openapi-server-client
+      token: ${{ secrets.SERVER_CLIENT_TOKEN }}
+      path: openapi-server-client
+
   - name: Debug
     shell: bash
-    run: ls -R
+    run: |
+      ls -R
+      echo "new ls"
+      ls openapi-server-client
 
   - name: Set up SSH
     shell: bash
