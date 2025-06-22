@@ -20,6 +20,7 @@ runs:
   steps:
 
   - name: Set up SSH
+    shell: bash
     run: |
       mkdir -p ~/.ssh
       echo "${{ inputs.ssh_private_key }}" > ~/.ssh/id_rsa
@@ -32,7 +33,7 @@ runs:
     run: rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/
 
   - name: Create branch
-    working_directory: ${{ inputs.repo_path }}
+    working-directory: ${{ inputs.repo_path }}
     shell: bash
     run: |
       if ! git checkout -b 'AUTO-PR-${{ github.ref_name }}' 2>/dev/null; then
@@ -41,9 +42,8 @@ runs:
       fi
 
   - name: Push changes to branch
-    working_directory: ${{ inputs.repo_path }}
+    working-directory: ${{ inputs.repo_path }}
     shell: bash
-    workdir: ${{ inputs.repo_path }}
     run: |
       git config user.name 'aydough-bot'
       git config user.email 'aydough-bot@non-existent.com'
