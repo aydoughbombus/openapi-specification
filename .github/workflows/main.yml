@@ -3,6 +3,7 @@ on: push
 jobs:
     ci:
         runs-on: ubuntu-latest
+        if: github.ref_name != 'main'
         steps:
             - uses: actions/checkout@v4
 
@@ -16,8 +17,16 @@ jobs:
             - name: Generate API
               shell: bash
               run: make build-api
+            
+            - uses: actions/checkout@v4
+              with:
+                repository: aydoughbombus/openapi-server-client
+                token: ${{ secrets.SERVER_CLIENT_TOKEN }}
+                path: openapi-server-client
 
-            - name: Init repository
-              uses: ./.github/actions/init-repo
+            - name: Create PR
+              uses: ./.github/actions/create-pr
               with:
                 token: ${{ secrets.SERVER_CLIENT_TOKEN }}
+                ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+                repo_path: openapi-server-client
