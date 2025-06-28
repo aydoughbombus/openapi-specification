@@ -45,7 +45,7 @@ runs:
 
   - name: Copy files over
     shell: bash
-    run: rsync -a --delete ./gen/ ./${{ inputs.repo_path }}/pkg/gen/
+    run: rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/
 
   - name: Create branch
     working-directory: ${{ inputs.repo_path }}
