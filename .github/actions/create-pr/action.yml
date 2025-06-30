@@ -24,17 +24,7 @@ runs:
       repository: aydoughbombus/openapi-server-client
       token: ${{ inputs.token }}
       path: openapi-server-client
-
-  # - name: Debug
-  #   shell: bash
-  #   run: |
-  #     ls -R
-  #     echo "--- new ls ---"
-  #     ls openapi-server-client
-  #     echo "--- exec pwd ---"
-  #     pwd
-  #     echo "--- test ---"
-      
+      fetch-depth: 0
 
   - name: Set up SSH
     shell: bash
