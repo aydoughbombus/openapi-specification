@@ -48,9 +48,9 @@ runs:
     working-directory: ${{ inputs.repo_path }}
     shell: bash
     run: |
-      if ! git checkout -b "$AUTO_BRANCH_NAME" 2>/dev/null; then
-        echo "Branch $AUTO_BRANCH_NAME already exists. Skipping creation"
-        git checkout "$AUTO_BRANCH_NAME"
+      if ! git checkout -b 'AUTO-BRANCH-${{ github.ref_name }}' 2>/dev/null; then
+        echo "Branch AUTO-BRANCH-${{ github.ref_name }} already exists. Skipping creation"
+        git checkout 'AUTO-BRANCH-${{ github.ref_name }}'
       fi
 
       git branch --show-current
@@ -63,7 +63,7 @@ runs:
       git config user.email 'aydough-bot@non-existent.com'
       git add .
       git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
-      git push origin "$AUTO_BRANCH_NAME"
+      git push origin 'AUTO-BRANCH-${{ github.ref_name }}'
 
   - name: Open new PR
     shell: bash
