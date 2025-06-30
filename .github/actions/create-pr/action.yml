@@ -25,14 +25,16 @@ runs:
       token: ${{ inputs.token }}
       path: openapi-server-client
 
-  - name: Debug
-    shell: bash
-    run: |
-      ls -R
-      echo "new ls"
-      ls openapi-server-client
-      echo "pwd"
-      pwd
+  # - name: Debug
+  #   shell: bash
+  #   run: |
+  #     ls -R
+  #     echo "--- new ls ---"
+  #     ls openapi-server-client
+  #     echo "--- exec pwd ---"
+  #     pwd
+  #     echo "--- test ---"
+      
 
   - name: Set up SSH
     shell: bash
@@ -45,7 +47,9 @@ runs:
 
   - name: Copy files over
     shell: bash
-    run: rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/
+    run: |
+      mkdir -p ${{ inputs.repo_path }}/pkg/gen/
+      rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/
 
   - name: Create branch
     working-directory: ${{ inputs.repo_path }}
