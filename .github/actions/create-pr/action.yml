@@ -50,6 +50,8 @@ runs:
         git checkout 'AUTO-BRANCH-${{ github.ref_name }}'
       fi
 
+      git branch --show-current
+
   - name: Push changes to branch
     working-directory: ${{ inputs.repo_path }}
     shell: bash
