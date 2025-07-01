@@ -15,9 +15,6 @@ inputs:
     retuired: true
     type: string
 
-env:
-  AUTO_BRANCH_NAME: AUTO-BRANCH-${{ github.ref_name }}
-
 runs:
   using: composite
   steps:
@@ -52,8 +49,6 @@ runs:
         echo "Branch AUTO-BRANCH-${{ github.ref_name }} already exists. Skipping creation"
         git checkout 'AUTO-BRANCH-${{ github.ref_name }}'
       fi
-
-      git branch --show-current
 
   - name: Push changes to branch
     working-directory: ${{ inputs.repo_path }}
