@@ -65,10 +65,13 @@ runs:
     env:
       GH_TOKEN: ${{ inputs.token }}
     run: |
+
+      git status
+
       out=$(gh pr list --state open --base main --head AUTO-BRANCH-${{ github.ref_name }} --repo aydoughbombus/openapi-server-client --json number --jq '.[0].number'| xargs)
       if [[ -z "$out" ]]; then
         # No PR found - then let's open it
-        gh pr create --title AUTO-PR-${{ github.ref_name }} --body 'PR automatically created'
+        gh pr create --title AUTO-PR-${{ github.ref_name }} --body 'PR automatically created' --base main --head AUTO-BRANCH-${{ github.ref_name }} --repo aydoughbombus/openapi-server-client
       else
         echo "PR already exists, skipping creation"
       fi
