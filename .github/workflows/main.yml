@@ -3,7 +3,10 @@ on: push
 jobs:
     ci:
         runs-on: ubuntu-latest
+        if: github.ref_name != 'main'
         steps:
+            - uses: actions/checkout@v4
+
             - name: Install devbox
               uses: jetify-com/devbox-install-action@v0.12.0
 
@@ -11,6 +14,13 @@ jobs:
               shell: bash
               run: make build-sdk
 
-            - name: Generate SDK
+            - name: Generate API
               shell: bash
-              run: make build-sdk
+              run: make build-api
+
+            - name: Create PR
+              uses: ./.github/actions/create-pr
+              with:
+                token: ${{ secrets.SERVER_CLIENT_TOKEN }}
+                ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+                repo_path: openapi-server-client

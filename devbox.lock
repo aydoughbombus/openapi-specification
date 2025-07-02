@@ -1,6 +1,126 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "gh@latest": {
+      "last_modified": "2025-06-11T05:21:29Z",
+      "resolved": "github:NixOS/nixpkgs/f72be405a10668b8b00937b452f2145244103ebc#gh",
+      "source": "devbox-search",
+      "version": "2.74.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/p8mq9k98247ga6hp82p79mgjhwizz7y2-gh-2.74.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/p8mq9k98247ga6hp82p79mgjhwizz7y2-gh-2.74.1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/20ndq1vqz76jwj05jq1qza37r7mhcdbh-gh-2.74.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/20ndq1vqz76jwj05jq1qza37r7mhcdbh-gh-2.74.1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/cm40jchywhdkc4pcsli26sjnjzq8l0k6-gh-2.74.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/cm40jchywhdkc4pcsli26sjnjzq8l0k6-gh-2.74.1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/yvh0c8j538k9clk6wmsmif4kf2jq7wys-gh-2.74.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/yvh0c8j538k9clk6wmsmif4kf2jq7wys-gh-2.74.1"
+        }
+      }
+    },
+    "git@latest": {
+      "last_modified": "2025-05-16T20:19:48Z",
+      "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#git",
+      "source": "devbox-search",
+      "version": "2.49.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/9pa6rygnkrdp03j4ba0w6yb5qid5x3qb-git-2.49.0",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/4a1f3ymqasdx2sfwn615n6x6z15qk5nd-git-2.49.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/9pa6rygnkrdp03j4ba0w6yb5qid5x3qb-git-2.49.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/bqk89pw1wmjzrqi20vqz194ylfhl5cnm-git-2.49.0",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/ll9hlbwp3vvihpx2p2g7mykrl2a4snk4-git-2.49.0-doc"
+            },
+            {
+              "name": "debug",
+              "path": "/nix/store/ypv73aihzciz9x12imf5dvz4qkn4wakd-git-2.49.0-debug"
+            }
+          ],
+          "store_path": "/nix/store/bqk89pw1wmjzrqi20vqz194ylfhl5cnm-git-2.49.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/38kaic6dax0nkj4xwnyysmlwzdlrfdfr-git-2.49.0",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/0544ir9xg154jsb00i0881ggpafyw4nc-git-2.49.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/38kaic6dax0nkj4xwnyysmlwzdlrfdfr-git-2.49.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/805a5wv1cyah5awij184yfad1ksmbh9f-git-2.49.0",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/7dfxlvdhr5g57b1v8gxwpa2gs7i9g3y5-git-2.49.0-doc"
+            },
+            {
+              "name": "debug",
+              "path": "/nix/store/6nibw5w4xay921qx7lp74bs10qsqp0g9-git-2.49.0-debug"
+            }
+          ],
+          "store_path": "/nix/store/805a5wv1cyah5awij184yfad1ksmbh9f-git-2.49.0"
+        }
+      }
+    },
     "github:NixOS/nixpkgs/nixpkgs-unstable": {
       "last_modified": "2025-06-08T07:56:50Z",
       "resolved": "github:NixOS/nixpkgs/8207ad0d501dd3590e0e81a7c56b386a5c4342c9?lastModified=1749369410&narHash=sha256-P1eYm8bewiyWg3QaPCHrOp6iWg%2F7ESi%2FaGHT4yilyNo%3D"

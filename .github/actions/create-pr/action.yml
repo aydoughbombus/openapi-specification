@@ -1,0 +1,92 @@
+name: create-pr
+description: Pushes changes to a new branch and creates PR
+
+inputs:
+  token:
+    description: GitHub token for the target repo
+    required: true
+    type: string
+  ssh_private_key:
+    description: SSH private key to use with Git
+    required: true
+    type: string
+  repo_path:
+    description: Path of the cloned server and client repo
+    retuired: true
+    type: string
+
+runs:
+  using: composite
+  steps:
+
+  - uses: actions/checkout@v4
+    with:
+      repository: aydoughbombus/openapi-server-client
+      ref: 
+      token: ${{ inputs.token }}
+      path: ${{ inputs.repo_path }}
+
+  - name: Set up SSH
+    shell: bash
+    run: |
+      mkdir -p ~/.ssh
+      echo "${{ inputs.ssh_private_key }}" > ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+
+      ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+  - name: Try checking out feature branch, or create it from main
+    working-directory: ${{ inputs.repo_path }}
+    shell: bash
+    run: |
+      BRANCH="AUTO-BRANCH-${{ github.ref_name }}"
+
+      if git fetch origin $BRANCH; then
+        # branch exists
+        git checkout $BRANCH
+      else
+        echo "Branch $BRANCH doesn't exists - Let's create it"
+        git checkout origin/main
+        git checkout -b $BRANCH
+      fi
+
+  - name: Copy files over
+    shell: bash
+    run: |
+      mkdir -p ${{ inputs.repo_path }}/pkg/gen/
+      rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/ 
+
+  - name: Push changes to branch
+    working-directory: ${{ inputs.repo_path }}
+    shell: bash
+    run: |
+      git config user.name 'aydough-bot'
+      git config user.email 'aydough-bot@non-existent.com'
+      
+      if [[ $(git status --porcelain) ]]; then
+        echo 'Changes detected'
+        git add .
+        git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
+        git push origin 'AUTO-BRANCH-${{ github.ref_name }}'
+      else
+        echo 'No changes detected - nothing to commit'
+      fi
+
+
+  - name: Open new PR
+    shell: bash
+    env:
+      GH_TOKEN: ${{ inputs.token }}
+    run: |
+
+      git status
+
+      out=$(gh pr list --state open --base main --head AUTO-BRANCH-${{ github.ref_name }} --repo aydoughbombus/openapi-server-client --json number --jq '.[0].number'| xargs)
+      if [[ -z "$out" ]]; then
+        # No PR found - then let's open it
+        gh pr create --title AUTO-PR-${{ github.ref_name }} --body 'PR automatically created' --base main --head AUTO-BRANCH-${{ github.ref_name }} --repo aydoughbombus/openapi-server-client
+      else
+        echo "PR already exists, skipping creation"
+      fi
+  
+  
