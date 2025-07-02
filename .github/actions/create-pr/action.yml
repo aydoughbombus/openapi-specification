@@ -64,7 +64,7 @@ runs:
       git config user.email 'aydough-bot@non-existent.com'
       
       if git status --porcelain; then
-        # Changes detected
+        echo 'Changes detected'
         git add .
         git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
         git push origin 'AUTO-BRANCH-${{ github.ref_name }}'
