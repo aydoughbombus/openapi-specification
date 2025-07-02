@@ -40,13 +40,12 @@ runs:
     shell: bash
     run: |
       BRANCH="AUTO-BRANCH-${{ github.ref_name }}"
-      git fetch origin $BRANCH || true
 
-      if git ls-remote --exit-code --heads origin $BRANCH; then
-        echo "Remote branch $BRANCH exists. Checking it out..."
+      if git fetch origin $BRANCH; then
+        # branch exists
         git checkout $BRANCH
       else
-        echo "Remote branch $BRANCH doesn't exist. Creating it from origin/main..."
+        echo "Branch $BRANCH doesn't exists - Let's create it"
         git checkout origin/main
         git checkout -b $BRANCH
       fi
