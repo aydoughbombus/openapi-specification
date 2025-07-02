@@ -64,7 +64,12 @@ runs:
       git config user.email 'aydough-bot@non-existent.com'
       git add .
       git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
-      git push origin 'AUTO-BRANCH-${{ github.ref_name }}'
+      
+      if git status --porcelain; then
+        # Changes detected
+        git push origin 'AUTO-BRANCH-${{ github.ref_name }}'
+      fi
+
 
   - name: Open new PR
     shell: bash
