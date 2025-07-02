@@ -62,11 +62,11 @@ runs:
     run: |
       git config user.name 'aydough-bot'
       git config user.email 'aydough-bot@non-existent.com'
-      git add .
-      git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
       
       if git status --porcelain; then
         # Changes detected
+        git add .
+        git commit -m 'Automatic commit generated from aydoughbombus/openapi-specification@${{ github.sha }}'
         git push origin 'AUTO-BRANCH-${{ github.ref_name }}'
       fi
 
