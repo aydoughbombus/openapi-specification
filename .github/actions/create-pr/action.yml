@@ -24,7 +24,6 @@ runs:
       repository: aydoughbombus/openapi-server-client
       token: ${{ inputs.token }}
       path: openapi-server-client
-      fetch-depth: 0
 
   - name: Set up SSH
     shell: bash
