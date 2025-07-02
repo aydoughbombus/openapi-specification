@@ -22,8 +22,9 @@ runs:
   - uses: actions/checkout@v4
     with:
       repository: aydoughbombus/openapi-server-client
+      ref: 
       token: ${{ inputs.token }}
-      path: openapi-server-client
+      path: ${{ inputs.repo_path }}
 
   - name: Set up SSH
     shell: bash
@@ -34,20 +35,25 @@ runs:
 
       ssh-keyscan github.com >> ~/.ssh/known_hosts
 
+  - name: Try checking out feature branch, or create it from main
+    run: |
+      BRANCH="AUTO-BRANCH-${{ github.ref_name }}"
+      git fetch origin $BRANCH || true
+
+      if git ls-remote --exit-code --heads origin $BRANCH; then
+        echo "Remote branch $BRANCH exists. Checking it out..."
+        git checkout $BRANCH
+      else
+        echo "Remote branch $BRANCH doesn't exist. Creating it from origin/main..."
+        git checkout origin/main
+        git checkout -b $BRANCH
+      fi
+
   - name: Copy files over
     shell: bash
     run: |
       mkdir -p ${{ inputs.repo_path }}/pkg/gen/
-      rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/
-
-  - name: Create branch
-    working-directory: ${{ inputs.repo_path }}
-    shell: bash
-    run: |
-      if ! git checkout -b 'AUTO-BRANCH-${{ github.ref_name }}' 2>/dev/null; then
-        echo "Branch AUTO-BRANCH-${{ github.ref_name }} already exists. Skipping creation"
-        git checkout 'AUTO-BRANCH-${{ github.ref_name }}'
-      fi
+      rsync -a --delete gen/ ${{ inputs.repo_path }}/pkg/gen/ 
 
   - name: Push changes to branch
     working-directory: ${{ inputs.repo_path }}
